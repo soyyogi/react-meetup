@@ -1,30 +1,46 @@
-/* eslint-disable testing-library/await-async-query */
-/* eslint-disable testing-library/no-debugging-utils */
-import { shallow, mount } from "enzyme";
-import App from "./App";
-import MainNavigation from "./components/layout/MainNavigation";
-import Layout from "./components/layout/Layout";
+// Import necessary dependencies for testing
+import React from 'react';
+import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import App from './App';
+import { MeetupsProvider } from './services/store/MeetupsContext';
 
-/**
- * Factory funcion to create a ShallowWrapper for the App component
- * @function setup
- * @returns {ShallowWrapper}
- */
-const setup = () => shallow(<App />);
-const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test]='${val}'`);
+// Mock the Routes component
+jest.mock('./services/routing', () => ({
+  Routes: () => <div data-testid="mocked-routes">Mocked Routes</div>,
+}));
 
-test("renders App without crashing", () => {
-  const wrapper = setup();
-  //console.log(wrapper.debug());
-  expect(wrapper.exists()).toBe(true);
-});
+describe('App component', () => {
+  it('renders without crashing', () => {
+    mount(
+      <MeetupsProvider>
+        <Router>
+          <App />
+        </Router>
+      </MeetupsProvider>
+    );
+  });
 
-test("renders the navigation component", () => {
-  const wrapper = setup();
-  expect(wrapper.find(MainNavigation).length).toBe(1);
-});
+  it('renders ToastContainer', () => {
+    const wrapper = mount(
+      <MeetupsProvider>
+        <Router>
+          <App />
+        </Router>
+      </MeetupsProvider>
+    );
+    expect(wrapper.find(ToastContainer)).toHaveLength(1);
+  });
 
-test("renders the Layout component", () => {
-  const wrapper = setup();
-  expect(wrapper.find(Layout).length).toBe(1);
+  it('renders mocked Routes component', () => {
+    const wrapper = mount(
+      <MeetupsProvider>
+        <Router>
+          <App />
+        </Router>
+      </MeetupsProvider>
+    );
+    expect(wrapper.find('[data-testid="mocked-routes"]')).toHaveLength(1);
+  });
 });

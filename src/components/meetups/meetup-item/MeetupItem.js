@@ -1,6 +1,6 @@
 import classes from "./MeetupItem.module.css";
-import Card from "../ui/Card";
-import { useMeetups } from "../../services/store/MeetupsContext";
+import { Card } from "@components/ui";
+import { useMeetups } from "@services/store/MeetupsContext";
 
 export default function MeetupItem({ item }) {
   const { favorites, toggleFavorite } = useMeetups();

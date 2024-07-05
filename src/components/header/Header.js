@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 
 import classes from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import { ROUTES } from "../../services/routing";
-import { useMeetups } from "../../services/store/MeetupsContext";
+import { ROUTES } from "@services/routing";
+import { useMeetups } from "@services/store/MeetupsContext";
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(true);

@@ -1,9 +1,9 @@
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useMeetups } from "../../services/store/MeetupsContext";
-import Card from "../ui/Card";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useMeetups } from "@services/store/MeetupsContext";
+import { Card } from "@components/ui";
 import classes from "./NewMeetupForm.module.css";
-import { ROUTES } from '../../services/routing';
+import { ROUTES } from "@services/routing";
 
 export default function NewMeetupForm() {
   const { addMeetup } = useMeetups();
@@ -23,7 +23,7 @@ export default function NewMeetupForm() {
 
     addMeetup(newMeetup);
     form.reset();
-    toast.success('New meetup added successfully!', {
+    toast.success("New meetup added successfully!", {
       position: "top-right",
     });
     history.push(ROUTES.HOME);
