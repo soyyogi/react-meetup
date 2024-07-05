@@ -1,10 +1,11 @@
+import Header from "../header/Header";
+import classes from "./Layout.module.css";
 
-import classes from './Layout.module.css';
-
-export default function Layout({children}) {
+export default function Layout({ children }) {
   return (
-    <div>
+    <>
+      <Header />
       <main className={classes.main}>{children}</main>
-    </div>
+    </>
   );
 }

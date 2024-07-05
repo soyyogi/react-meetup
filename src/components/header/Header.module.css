@@ -59,3 +59,7 @@
 .hidden {
   transform: translateY(-100%);
 }
+
+.active {
+  color: white;
+}

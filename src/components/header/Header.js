@@ -1,14 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
-import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE } from "./../../utils/constants";
 
-import classes from "./MainNavigation.module.css";
+import classes from "./Header.module.css";
+import { NavLink } from "react-router-dom";
+import { ROUTES } from "../../services/routing";
 
-export default function MainNavigation({ setPage }) {
+export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
 
   const handleScroll = useCallback(() => {
-    const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+    const currentScrollTop =
+      window.scrollY || document.documentElement.scrollTop;
     if (currentScrollTop > lastScrollTop) {
       setIsVisible(false);
     } else {
@@ -25,26 +27,31 @@ export default function MainNavigation({ setPage }) {
   }, [lastScrollTop, handleScroll]);
 
   return (
-    <header className={`${classes.header} ${isVisible ? classes.visible : classes.hidden}`} data-test="navigation-header">
+    <header
+      className={`${classes.header} ${
+        isVisible ? classes.visible : classes.hidden
+      }`}
+      data-test="navigation-header"
+    >
       <div className={classes.logo}>React Meetups</div>
       <nav>
         <ul>
           <li>
-            <a href="#" onClick={() => setPage(ALL_MEETUP_PAGE)}>
+            <NavLink to={ROUTES.HOME} exact activeClassName={classes.active}>
               All Meetups
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a href="#" onClick={() => setPage(NEW_MEETUP_PAGE)}>
+            <NavLink to={ROUTES.NEW_MEETUP} activeClassName={classes.active}>
               Add New Meetup
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="#" onClick={() => setPage(FAVORITES_PAGE)}>
+            <NavLink to={ROUTES.FAVORITES} activeClassName={classes.active}>
               My Favorites
               <span className={classes.badge}>{0}</span>
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
