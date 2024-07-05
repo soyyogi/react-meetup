@@ -1,9 +1,32 @@
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useMeetups } from "../../services/store/MeetupsContext";
 import Card from "../ui/Card";
 import classes from "./NewMeetupForm.module.css";
+import { ROUTES } from '../../services/routing';
 
 export default function NewMeetupForm() {
+  const { addMeetup } = useMeetups();
+  const history = useHistory();
+
   function submitHandler(event) {
     event.preventDefault();
+    const form = event.target;
+
+    const newMeetup = {
+      id: Math.random().toString(),
+      title: form.title.value,
+      image: form.image.value,
+      address: form.address.value,
+      description: form.description.value,
+    };
+
+    addMeetup(newMeetup);
+    form.reset();
+    toast.success('New meetup added successfully!', {
+      position: "top-right",
+    });
+    history.push(ROUTES.HOME);
   }
 
   return (

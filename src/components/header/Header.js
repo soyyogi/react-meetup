@@ -3,10 +3,12 @@ import { useState, useEffect, useCallback } from "react";
 import classes from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import { ROUTES } from "../../services/routing";
+import { useMeetups } from "../../services/store/MeetupsContext";
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const { favorites } = useMeetups();
 
   const handleScroll = useCallback(() => {
     const currentScrollTop =
@@ -50,7 +52,7 @@ export default function Header() {
           <li>
             <NavLink to={ROUTES.FAVORITES} activeClassName={classes.active}>
               My Favorites
-              <span className={classes.badge}>{0}</span>
+              <span className={classes.badge}>{favorites.length}</span>
             </NavLink>
           </li>
         </ul>
